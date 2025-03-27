@@ -1,15 +1,24 @@
 // Game state
-const gameState = {
-  humanScore: 0,
-  computerScore: 0,
-  choices: ['rock', 'paper', 'scissors'],
-  winConditions: {
-    rock: 'scissors',
-    paper: 'rock',
-    scissors: 'paper'
-  }
-};
 
+class GameState {
+  constructor(
+    humanScore = 0,
+    computerScore = 0,
+    choices = ["rock", "paper", "scissors"],
+    winConditions = {
+      rock: "scissors",
+      paper: "rock",
+      scissors: "paper",
+    }
+  ) {
+    this.humanScore = humanScore;
+    this.computerScore = computerScore;
+    this.choices = choices;
+    this.winConditions = winConditions;
+  }
+}
+
+const gameState = new GameState();
 // Computer choice logic
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * gameState.choices.length);
@@ -18,9 +27,13 @@ function getComputerChoice() {
 
 // Update UI elements
 function updateUI(result) {
-  document.getElementById('result').textContent = result;
-  document.getElementById('userScore').textContent = `User Score: ${gameState.humanScore}`;
-  document.getElementById('computerScore').textContent = `Computer Score: ${gameState.computerScore}`;
+  document.getElementById("result").textContent = result;
+  document.getElementById(
+    "userScore"
+  ).textContent = `User Score: ${gameState.humanScore}`;
+  document.getElementById(
+    "computerScore"
+  ).textContent = `Computer Score: ${gameState.computerScore}`;
 }
 
 // Determine round winner
@@ -28,12 +41,12 @@ function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     return "It's a tie!";
   }
-  
+
   if (gameState.winConditions[humanChoice] === computerChoice) {
     gameState.humanScore++;
     return "You win this round!";
   }
-  
+
   gameState.computerScore++;
   return "Computer wins this round!";
 }
